@@ -56,6 +56,7 @@ public class Server {
                 Node orderHeaderN = orderHeaderNL.item(0);
                 Element orderHeaderE = (Element) orderHeaderN;
                 String orderState = orderHeaderE.getElementsByTagName("OrderState").item(0).getTextContent();
+                //System.out.println(completeXML.toString());
 
                 if(orderState.equals("Open")) {
 
@@ -71,6 +72,22 @@ public class Server {
                                     eElement.getElementsByTagName("Name").item(0).getTextContent() + " at " +
                                     eElement.getElementsByTagName("Price").item(0).getTextContent()
                             );
+
+                            try {
+                                NodeList condis = eElement.getElementsByTagName("Condiments");
+                                for(int x = 0; x < condis.getLength(); x++){
+                                    Node nCondi = condis.item(x);
+                                    if(nCondi.getNodeType() == Node.ELEMENT_NODE) {
+                                        Element nElement = (Element) nCondi;
+                                        for(int z = 0; z < nElement.getElementsByTagName("Description").getLength(); z++){
+                                            System.out.println(" - " + nElement.getElementsByTagName("Description").item(z).getTextContent());
+                                        }
+                                    }
+                                }
+
+                            } catch (Exception ignored){
+
+                            }
                         }
                     }
                 } else {
